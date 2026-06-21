@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import PixelAvatar from './components/PixelAvatar'
+import { useScrollReveal, useStaggerReveal } from './hooks/useScrollReveal'
 import './App.css'
 
 const sections = ['about', 'skills', 'experience', 'projects', 'contact']
@@ -152,33 +154,6 @@ function TypeWriter({ text, speed = 80 }) {
   return <>{displayed}</>
 }
 
-function PixelAvatar() {
-  return (
-    <div className="pixel-avatar">
-      <svg className="pixel-avatar-inner" viewBox="0 0 8 8" fill="none">
-        <rect x="2" y="1" width="1" height="1" fill="#333"/>
-        <rect x="5" y="1" width="1" height="1" fill="#333"/>
-        <rect x="2" y="2" width="1" height="1" fill="#333"/>
-        <rect x="5" y="2" width="1" height="1" fill="#333"/>
-        <rect x="3" y="3" width="2" height="1" fill="#333"/>
-        <rect x="1" y="4" width="1" height="1" fill="#333"/>
-        <rect x="2" y="4" width="4" height="1" fill="#333"/>
-        <rect x="6" y="4" width="1" height="1" fill="#333"/>
-        <rect x="3" y="5" width="2" height="1" fill="#333"/>
-        <rect x="0" y="3" width="1" height="1" fill="#666"/>
-        <rect x="7" y="3" width="1" height="1" fill="#666"/>
-        <rect x="0" y="2" width="1" height="1" fill="#666"/>
-        <rect x="7" y="2" width="1" height="1" fill="#666"/>
-        <rect x="3" y="0" width="2" height="1" fill="#666"/>
-        <rect x="1" y="6" width="1" height="1" fill="#999"/>
-        <rect x="6" y="6" width="1" height="1" fill="#999"/>
-        <rect x="2" y="7" width="1" height="1" fill="#999"/>
-        <rect x="5" y="7" width="1" height="1" fill="#999"/>
-      </svg>
-    </div>
-  )
-}
-
 function Navbar() {
   return (
     <nav className="navbar">
@@ -213,8 +188,9 @@ function Hero() {
 }
 
 function About() {
+  const ref = useScrollReveal()
   return (
-    <section id="about" className="section about">
+    <section ref={ref} id="about" className="section about">
       <h2 className="section-title">About Me</h2>
       <div className="about-content">
         <p className="about-text">
@@ -244,10 +220,11 @@ function About() {
 }
 
 function Skills() {
+  const gridRef = useStaggerReveal(skills.length, { stagger: 0.05 })
   return (
     <section id="skills" className="section">
       <h2 className="section-title">Skills</h2>
-      <div className="skills-grid">
+      <div ref={gridRef} className="skills-grid">
         {skills.map((s) => (
           <span key={s} className="skill-badge">{s}</span>
         ))}
@@ -257,10 +234,11 @@ function Skills() {
 }
 
 function Experience() {
+  const timelineRef = useStaggerReveal(experiences.length, { stagger: 0.15 })
   return (
     <section id="experience" className="section experience">
       <h2 className="section-title">Experience</h2>
-      <div className="timeline">
+      <div ref={timelineRef} className="timeline">
         {experiences.map((exp, i) => (
           <div key={i} className="timeline-item">
             <h3 className="timeline-role">{exp.role}</h3>
@@ -275,10 +253,11 @@ function Experience() {
 }
 
 function Projects() {
+  const gridRef = useStaggerReveal(projects.length, { stagger: 0.08, y: 60 })
   return (
     <section id="projects" className="section">
       <h2 className="section-title">Projects</h2>
-      <div className="projects-grid">
+      <div ref={gridRef} className="projects-grid">
         {projects.map((p, i) => (
           <div key={i} className="project-card">
             <div className="project-images">
@@ -352,9 +331,7 @@ function Footer() {
   return (
     <footer className="footer">
       <p className="footer-text">
-        &copy; {new Date().getFullYear()} Ivan Kusuma Aulia
-        <br />
-        Built with React &middot; Pixel Theme
+        &copy; {new Date().getFullYear()} ivankusuma07 
       </p>
     </footer>
   )
