@@ -6,8 +6,8 @@ import './App.css'
 const sections = ['about', 'skills', 'experience', 'projects', 'contact']
 
 const skills = [
-  'Vue.js', 'Nuxt.js', 'React', 'TypeScript', 'JavaScript', 'Electron.js',
-  'WebSocket', 'GraphQL', 'REST API', 'Node.js', 'Tailwind CSS',
+  'Vue.js', 'Nuxt.js', 'React', 'TypeScript','Supabase', 'JavaScript', 'Electron.js',
+  'WebSocket', 'GraphQL', 'REST API', 'Node.js', 'Tailwind CSS', 'GSAP',
   'Pinia', 'Vuex', 'CI/CD', 'Code Review', 'SEO',
   'Accessibility', 'RBAC', '2FA', 'Biometric', 'Lighthouse',
 ]
@@ -197,7 +197,7 @@ function Hero() {
         <TypeWriter text="> Ivan Kusuma Aulia" />
         <span className="cursor" />
       </h1>
-      <p className="hero-subtitle">Frontend Engineer — Vue.js Specialist</p>
+      <p className="hero-subtitle">Frontend Engineer — Vue | Nuxt | React</p>
       <p className="hero-tagline">
         7+ years building scalable web apps, SDKs, and real-time systems
       </p>
@@ -274,6 +274,46 @@ function Experience() {
   )
 }
 
+function ProjectCarousel({ images }) {
+  const [active, setActive] = useState(0)
+
+  useEffect(() => {
+    if (images.length <= 1) return
+    const timer = setInterval(() => {
+      setActive((prev) => (prev + 1) % images.length)
+    }, 3000)
+    return () => clearInterval(timer)
+  }, [images.length])
+
+  if (images.length === 0) return null
+
+  return (
+    <div className="carousel">
+      <div className="carousel-track">
+        {images.map((src, i) => (
+          <img
+            key={i}
+            src={src}
+            alt=""
+            loading="lazy"
+            className={`carousel-img ${i === active ? 'active' : ''}`}
+          />
+        ))}
+      </div>
+      {images.length > 1 && (
+        <button
+          className="carousel-dot-nav"
+          onClick={() => setActive((prev) => (prev + 1) % images.length)}
+        >
+          {images.map((_, i) => (
+            <span key={i} className={`carousel-dot ${i === active ? 'active' : ''}`} />
+          ))}
+        </button>
+      )}
+    </div>
+  )
+}
+
 function Projects() {
   const gridRef = useStaggerReveal(projects.length, { stagger: 0.08, y: 60 })
   return (
@@ -283,12 +323,7 @@ function Projects() {
         {projects.map((p, i) => (
           <div key={i} className="project-card">
             <div className="project-images">
-              {p.images.slice(0, 1).map((img, j) => (
-                <img key={j} src={img} alt={p.title} className="project-img" loading="lazy" />
-              ))}
-              {p.images.length > 1 && (
-                <div className="project-img-more">+{p.images.length - 1} more</div>
-              )}
+              <ProjectCarousel images={p.images} />
             </div>
             <div className="category-tag">{p.category}</div>
             <h3 className="project-title">{p.title}</h3>

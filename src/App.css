@@ -380,16 +380,57 @@
   display: block;
 }
 
-.project-img-more {
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carousel-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-img {
   position: absolute;
-  bottom: 8px;
-  right: 8px;
-  font-family: var(--font-heading);
-  font-size: 8px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.carousel-img.active {
+  opacity: 1;
+}
+
+.carousel-dot-nav {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
   padding: 4px 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--border-color);
+  transition: background 0.3s;
+}
+
+.carousel-dot.active {
   background: var(--text-primary);
-  color: var(--bg-secondary);
-  border: 2px solid var(--border-color);
 }
 
 .category-tag {
