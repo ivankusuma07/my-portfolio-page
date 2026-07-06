@@ -135,6 +135,28 @@ const projects = [
     },
     category: 'Web',
   },
+  {
+    title: 'POS Sanbercode',
+    desc: 'Point-of-sale system with dashboard reporting, transaction history, and print. Built for Sanbercode coding test.',
+    tech: ['Vue','Supabase', 'Typescript', 'Tailwind', 'Pinia'],
+    images: ['/images/15_pos_sanbercode.png'],
+    links: {
+      // live: 'https://pokedex-nuxt3-graphql.netlify.app/',
+      gitlab: 'https://gitlab.com/ivankusuma07/pos-sanbercode',
+    },
+    category: 'Web',
+  },
+  {
+    title: 'My Portfolio Page',
+    desc: 'My portfolio page built with React, Typescript, Vite, and GSAP for animations. Showcases my skills, experience, and projects in a visually appealing manner.',
+    tech: ['React', 'Typescript', 'Vite', 'GSAP'],
+    images: ['/images/16_my_portfolio_page.png'],
+    links: {
+      live: 'https://ivan-kusuma.netlify.app/',
+      github: 'https://github.com/ivankusuma07/my-portfolio-page',
+    },
+    category: 'Web',
+  },
 ]
 
 function TypeWriter({ text, speed = 80 }) {
@@ -285,6 +307,11 @@ function Projects() {
               {p.links?.github && (
                 <a href={p.links.github} target="_blank" rel="noopener noreferrer">
                   &lt;GitHub /&gt;
+                </a>
+              )}
+              {p.links?.gitlab && (
+                <a href={p.links.gitlab} target="_blank" rel="noopener noreferrer">
+                  &lt;GitLab /&gt;
                 </a>
               )}
             </div>
