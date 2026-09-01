@@ -157,6 +157,16 @@ const projects = [
     },
     category: 'Web',
   },
+  {
+    title: 'Pattampa',
+    desc: 'Digital wedding invitation SaaS — create personalized invitations with live preview, photo gallery management, RSVP & guest tracking, digital gifts, and background music. Features real-time editor with auto-save and shareable personal links.',
+    tech: ['React', 'Next.js', 'Tailwind', 'Zod', 'Vitest', 'Supabase'],
+    images: ['/images/17_pattampa_landing.png', '/images/18_pattampa_editor.png'],
+    links: {
+      live: 'https://pattampa-invitation-saas.vercel.app/',
+    },
+    category: 'Web',
+  },
 ]
 
 function TypeWriter({ text, speed = 80 }) {
