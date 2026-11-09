@@ -167,6 +167,86 @@ const projects = [
     },
     category: 'Web',
   },
+  {
+    title: 'Vladar',
+    desc: 'Parody community web app for Robinhood Chain. Its home "Scout" is a live radar of tokens and liquidity pools, pulling data from CoinGecko, a subgraph, or Alchemy and flagging pools with thin liquidity.',
+    tech: ['Next.js 15', 'React 19', 'Robinhood Chain', 'Alchemy'],
+    images: ['/images/19_vladar.png'],
+    links: {
+      live: 'https://www.vladar.site/',
+    },
+    category: 'Web3',
+  },
+  {
+    title: 'STAMPD',
+    desc: "Puts every crypto influencer's call on the record: a dated call on X becomes a YES/NO market, the crowd prices it, the chain settles it, and the receipt stays forever.",
+    tech: ['Next.js', 'React', 'Robinhood Chain'],
+    images: ['/images/20_stampd.png'],
+    links: {
+      live: 'https://www.stampd.tech/',
+    },
+    category: 'Web3',
+  },
+  {
+    title: 'FOMOD',
+    desc: '"Post your call. Get your card." A thesis-to-mint dynamic NFT on Robinhood Chain — each card records a market call and shows over time whether the call was right.',
+    tech: ['Next.js', 'React', 'Dynamic NFT', 'Robinhood Chain'],
+    images: ['/images/21_fomod.png'],
+    links: {
+      live: 'https://fomod-app.vercel.app/',
+    },
+    category: 'Web3',
+  },
+  {
+    title: 'Veracity',
+    desc: 'Monthly public register that rates every venue on Robinhood Chain where tokenized stocks trade, scoring how far each venue is from being a genuine stock venue rather than a memecoin launcher.',
+    tech: ['Next.js', 'React', 'Robinhood Chain'],
+    images: ['/images/22_veracity.png'],
+    links: {
+      live: 'https://useveracity.site',
+    },
+    category: 'Web3',
+  },
+  {
+    title: 'hood.exe',
+    desc: "Memecoin launchpad for Robinhood Chain (Arbitrum Orbit L2) with the whole interface built as a Windows XP Luna-style desktop — draggable windows, taskbar, and start menu.",
+    tech: ['Next.js', 'React', 'Robinhood Chain'],
+    images: ['/images/23_hoodexe.png'],
+    links: {
+      live: 'https://www.hoodexe.site/',
+    },
+    category: 'Web3',
+  },
+  {
+    title: 'Mochipump',
+    desc: 'Non-custodial market-watching app on Solana with a Live2D companion (Zundamon) beside live market data. Holding $MOCHI unlocks extra content via wallet sign-in — never asks to sign a transaction.',
+    tech: ['Next.js', 'React', 'Live2D', 'Solana'],
+    images: ['/images/25_mochipump.png'],
+    links: {
+      live: 'https://www.mochipump.fun/',
+    },
+    category: 'Web3',
+  },
+  {
+    title: 'Redstring',
+    desc: 'Token supply forensics across Robinhood Chain, Base, Ethereum, BNB Chain and Arbitrum. Paste a contract to map the top 250 holders, link wallets by transfers, shared gas funders, or same-block buys, and get a shareable score.',
+    tech: ['Next.js', 'React', 'EVM', 'Data Viz'],
+    images: ['/images/26_redstring.png'],
+    links: {
+      live: 'https://www.redstringmap.site/',
+    },
+    category: 'Web3',
+  },
+  {
+    title: 'Arrowsmith',
+    desc: 'Fair-launch ERC-404 collection on Robinhood Chain — every whole $SMITH is an on-chain arrow NFT that earns a share of buy fees. Trading runs through a Uniswap v4 pool with a custom hook and anti-sniper tax.',
+    tech: ['Next.js', 'React', 'ERC-404', 'Uniswap v4'],
+    images: ['/images/27_arrowsmith.png'],
+    links: {
+      live: 'https://arrowsmith-sigma.vercel.app/',
+    },
+    category: 'Web3',
+  },
 ]
 
 function TypeWriter({ text, speed = 80 }) {
