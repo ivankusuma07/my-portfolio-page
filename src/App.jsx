@@ -1,41 +1,104 @@
 import { useState, useEffect } from 'react'
 import PixelAvatar from './components/PixelAvatar'
 import { useScrollReveal, useStaggerReveal } from './hooks/useScrollReveal'
+import ShapeGrid from './components/reactbits/ShapeGrid'
+import DecryptedText from './components/reactbits/DecryptedText'
+import ClickSpark from './components/reactbits/ClickSpark'
+import CountUp from './components/reactbits/CountUp'
+import LogoLoop from './components/reactbits/LogoLoop'
+import SpotlightCard from './components/reactbits/SpotlightCard'
 import './App.css'
 
 const sections = ['about', 'skills', 'experience', 'projects', 'contact']
 
-const skills = [
-  'Vue.js', 'Nuxt.js', 'React', 'TypeScript','Supabase', 'JavaScript', 'Electron.js',
-  'WebSocket', 'GraphQL', 'REST API', 'Node.js', 'Tailwind CSS', 'GSAP',
-  'Pinia', 'Vuex', 'CI/CD', 'Code Review', 'SEO',
-  'Accessibility', 'RBAC', '2FA', 'Biometric', 'Lighthouse',
+const PIXEL_GLYPHS = '█▓▒░<>/\\[]{}#$01'
+
+const skillRows = [
+  [
+    'Vue.js', 'Nuxt.js', 'React', 'Next.js', 'TypeScript', 'JavaScript', 'Electron.js',
+    'Pinia', 'Vuex', 'Zustand', 'Tailwind CSS', 'GSAP', 'Supabase', 'Node.js',
+    'GraphQL', 'REST API', 'WebSocket',
+  ],
+  [
+    'Robinhood Chain', 'Solana', 'EVM', 'Uniswap v4', 'ERC-404', 'Alchemy',
+    'Playwright', 'Vitest', 'Lighthouse', 'SEO', 'Accessibility', 'CI/CD',
+    'Code Review', 'RBAC', '2FA', 'Biometric', 'Claude', 'Cursor', 'Figma MCP',
+  ],
 ]
 
 const experiences = [
   {
-    role: 'Frontend Engineer',
-    company: 'ACCU3DX — South Korea (Remote)',
-    date: 'April 2024 – Present',
-    desc: 'Architected ViewTLab, a web-based dental lab and clinic dashboard with RBAC, WebSocket chat, Google Calendar-style reservations, and full treatment lifecycle management. Improved Lighthouse Accessibility from 86 to 100 and SEO from 83 to 92. Led code reviews and managed production pipelines.',
+    role: 'Software Engineer',
+    company: 'PT. Gemilang Pendidikan Nusantara (Wealthy People ID)',
+    location: 'Indonesia (Remote)',
+    date: 'September 2026 – Present',
+    bullets: [
+      'Built 7 Web3 products end-to-end across Robinhood Chain (Arbitrum Orbit L2), Solana, and EVM networks, with 5 launched or launch-ready on custom domains via Vercel.',
+      'Developed REDSTRING, a multi-chain token supply analyzer that maps the top 250 holders, links related wallets through transfers, shared gas funders, and launch-block buys, and produces a shareable score.',
+      'Built hood.exe, a memecoin launchpad for Robinhood Chain delivered as a full Windows XP Luna-style desktop interface.',
+      'Built Vladar with Next.js 15 and React 19 — a live radar of Robinhood Chain tokens and liquidity pools aggregating CoinGecko, subgraph, and Alchemy data.',
+      'Shipped VERACITY, a monthly public register rating tokenized-stock trading venues on Robinhood Chain mainnet.',
+      'Building STAMPD, Mochipump (Solana + Live2D, token-gated content), and Arrowsmith (ERC-404 with on-chain art and a Uniswap v4 custom-hook pool).',
+    ],
+    impact: "Rapidly took multiple on-chain products from idea to public launch, expanding the company's Web3 portfolio across several chains.",
   },
   {
     role: 'Frontend Engineer',
-    company: 'PRIVY — Bantul, Indonesia',
+    company: 'Accu3DX',
+    location: 'Gyeonggi, South Korea (Remote)',
+    date: 'April 2024 – May 2026',
+    bullets: [
+      'Architected and launched ViewTLab, a web-based dental lab and clinic dashboard powering patient and treatment management for an international clinic network.',
+      'Designed and implemented Role-Based Access Control (RBAC) supporting multiple user roles and layered permissions.',
+      'Built a Google Calendar-style reservation system with dynamic, conflict-aware scheduling logic.',
+      'Developed a real-time WebSocket-based chat system enabling instant clinic-to-lab communication.',
+      'Engineered a full project lifecycle module: prescriptions, activity logs, treatment tracking, order management, and team assignment.',
+      'Improved landing page Accessibility from 86 to 100 and SEO from 83 to 92.',
+      'Led code reviews and managed merge-to-production pipelines for a fully remote, async-first team.',
+    ],
+    impact: 'Delivered a scalable, multi-role architecture for a medical platform serving clinics and labs internationally.',
+  },
+  {
+    role: 'Frontend Engineer',
+    company: 'Privy',
+    location: 'Bantul, Indonesia',
     date: 'August 2022 – August 2023',
-    desc: 'Maintained Liveness SDK for identity verification across merchants. Built 2FA (Biometric + OTP) authentication SDK. Developed OCR-based KTP detection and registration improvements. Implemented camera blacklist security features.',
+    bullets: [
+      'Maintained and enhanced the Liveness SDK powering identity verification across merchant integrations.',
+      'Resolved merchant-reported SDK integration issues, reducing technical escalations.',
+      'Implemented a third-party camera blacklist security feature to prevent SDK misuse.',
+      'Developed OCR-based registration improvements streamlining onboarding flows.',
+      'Built and released Two-Factor Authentication (Biometric + OTP).',
+      'Conducted structured code reviews and managed production deployments.',
+    ],
+    impact: 'Improved security compliance and strengthened fraud prevention in a fintech-grade identity product.',
   },
   {
     role: 'Frontend Developer',
-    company: 'MYDIGILEARN — Bandung, Indonesia',
+    company: 'MyDigilearn',
+    location: 'Bandung, Indonesia',
     date: 'February 2022 – June 2022',
-    desc: 'Contributed to CMS architecture for a digital learning platform. Revamped Pathways UI (video, podcast, learning modules) to V3. Resolved critical production bugs and improved content management workflow.',
+    bullets: [
+      'Contributed to CMS architecture and feature development for a digital learning platform.',
+      'Revamped the Pathways UI (video, podcast, and learning modules) to Version 3.',
+      'Improved CMS usability across multiple menus, streamlining the content workflow.',
+      'Identified and resolved critical and minor production bugs.',
+    ],
+    impact: 'Improved platform usability and content publishing efficiency.',
   },
   {
     role: 'Frontend Developer',
-    company: 'WIDYA ROBOTICS — Sleman, Indonesia',
+    company: 'Widya Robotics',
+    location: 'Sleman, Indonesia',
     date: 'November 2018 – December 2021',
-    desc: 'Pioneered Electron.js adoption for desktop apps (MyNitro, Load Scanner, UAV LiDAR). Built Matador Tracker GPS-based heavy equipment monitoring. Integrated AI-powered CCTV for HSE/PPE compliance dashboards. Developed automated gate access with AI verification.',
+    bullets: [
+      'Initiated adoption of Electron.js to power desktop apps (MyNitro, Load Scanner, UAV LiDAR).',
+      'Built Matador Tracker, a GPS-based heavy equipment monitoring web app for construction projects.',
+      'Integrated AI-powered CCTV systems into HSE dashboards for PPE compliance detection.',
+      'Developed an automated gate access system triggered by AI-based PPE verification.',
+      'Integrated a SmartWarehouse system with RFID APIs for automated inventory counting.',
+    ],
+    impact: 'Delivered AI-integrated industrial monitoring systems that improved operational visibility and automation.',
   },
 ]
 
@@ -266,12 +329,47 @@ function TypeWriter({ text, speed = 80 }) {
   return <>{displayed}</>
 }
 
+function SectionTitle({ children }) {
+  return (
+    <h2 className="section-title">
+      <DecryptedText
+        text={children}
+        animateOn="inViewHover"
+        sequential
+        speed={45}
+        characters={PIXEL_GLYPHS}
+        encryptedClassName="decrypt-glyph"
+      />
+    </h2>
+  )
+}
+
 function Navbar() {
+  const [active, setActive] = useState('')
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.id)
+        })
+      },
+      { rootMargin: '-45% 0px -50% 0px' }
+    )
+    sections.forEach((s) => {
+      const el = document.getElementById(s)
+      if (el) observer.observe(el)
+    })
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <nav className="navbar">
       <div className="navbar-inner">
         {sections.map((s) => (
-          <a key={s} href={`#${s}`}>{s}</a>
+          <a key={s} href={`#${s}`} className={active === s ? 'active' : ''}>
+            {s}
+          </a>
         ))}
       </div>
     </nav>
@@ -281,50 +379,84 @@ function Navbar() {
 function Hero() {
   return (
     <section className="hero">
-      <div className="hero-bg-grid" />
-      <PixelAvatar />
-      <h1>
-        <TypeWriter text="> Ivan Kusuma Aulia" />
-        <span className="cursor" />
-      </h1>
-      <p className="hero-subtitle">Frontend Engineer — Vue | Nuxt | React</p>
-      <p className="hero-tagline">
-        7+ years building scalable web apps, SDKs, and real-time systems
-      </p>
-      <div className="hero-links">
-        <a href="#projects" className="pixel-btn pixel-btn-primary">View Work</a>
-        <a href="#contact" className="pixel-btn">Contact Me</a>
+      <div className="hero-bg-grid">
+        <ShapeGrid
+          shape="square"
+          cellSize={32}
+          direction="diagonal"
+          speed={0.25}
+          lineColor="#d6d6d6"
+          hoverColor="#1a1a1a"
+          hoverFillColor="#1a1a1a"
+          fillOpacity={0.12}
+          radius={2}
+          trail={0.5}
+          glow={0}
+        />
       </div>
+      <div className="hero-content">
+        <PixelAvatar />
+        <h1>
+          <TypeWriter text="> Ivan Kusuma Aulia" />
+          <span className="cursor" />
+        </h1>
+        <p className="hero-subtitle">
+          <DecryptedText
+            text="Senior Frontend Engineer — Vue | Nuxt | React | Next.js | Web3"
+            animateOn="inViewHover"
+            sequential
+            speed={30}
+            characters={PIXEL_GLYPHS}
+            encryptedClassName="decrypt-glyph"
+          />
+        </p>
+        <p className="hero-tagline">
+          7+ years building scalable web apps, SDKs, real-time systems — and now on-chain products
+        </p>
+        <div className="hero-links">
+          <a href="#projects" className="pixel-btn pixel-btn-primary">View Work</a>
+          <a href="#contact" className="pixel-btn">Contact Me</a>
+        </div>
+      </div>
+      <p className="hero-hint">hover the grid · click anywhere</p>
     </section>
   )
+}
+
+const stats = [
+  { to: 7, suffix: '+', label: 'Years Exp' },
+  { to: projectsCount(), suffix: '+', label: 'Projects' },
+  { to: 5, suffix: '', label: 'Companies' },
+  { to: 3, suffix: '+', label: 'Chains Shipped' },
+]
+
+function projectsCount() {
+  return Math.floor(projects.length / 5) * 5
 }
 
 function About() {
   const ref = useScrollReveal()
   return (
     <section ref={ref} id="about" className="section about">
-      <h2 className="section-title">About Me</h2>
+      <SectionTitle>About Me</SectionTitle>
       <div className="about-content">
         <p className="about-text">
-          Senior Frontend Engineer based in Yogyakarta, Indonesia, with 7+ years
-          of experience building scalable, high-performance web applications and
-          5+ years specializing in Vue.js ecosystems. Experienced in architecting
-          dashboards, real-time systems, SDK integrations, and enterprise-grade
-          web platforms for clinics, fintech, and AI-driven industrial systems.
+          Senior Frontend Engineer based in Sukoharjo, Indonesia, with 7+ years of
+          experience designing, building, and scaling production web applications —
+          including 2+ years fully remote with a distributed team in South Korea.
+          Deep specialization in Vue.js and Nuxt.js (5+ years), now shipping Web3
+          products end-to-end on Robinhood Chain and Solana: launchpads, on-chain
+          analytics, and wallet-connected apps.
         </p>
         <div className="about-stats">
-          <div className="stat">
-            <span className="stat-number">7+</span>
-            <span className="stat-label">Years Exp</span>
-          </div>
-          <div className="stat">
-            <span className="stat-number">12+</span>
-            <span className="stat-label">Projects</span>
-          </div>
-          <div className="stat">
-            <span className="stat-number">4</span>
-            <span className="stat-label">Companies</span>
-          </div>
+          {stats.map((s) => (
+            <div key={s.label} className="stat">
+              <span className="stat-number">
+                <CountUp to={s.to} suffix={s.suffix} duration={1.6} replayOnHover />
+              </span>
+              <span className="stat-label">{s.label}</span>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -332,16 +464,57 @@ function About() {
 }
 
 function Skills() {
-  const gridRef = useStaggerReveal(skills.length, { stagger: 0.05 })
   return (
-    <section id="skills" className="section">
-      <h2 className="section-title">Skills</h2>
-      <div ref={gridRef} className="skills-grid">
-        {skills.map((s) => (
-          <span key={s} className="skill-badge">{s}</span>
+    <section id="skills" className="section skills">
+      <SectionTitle>Skills</SectionTitle>
+      <div className="skills-loops">
+        {skillRows.map((row, i) => (
+          <LogoLoop
+            key={i}
+            logos={row.map((s) => ({ node: <span className="skill-badge">{s}</span>, title: s }))}
+            speed={i === 0 ? 50 : 40}
+            direction={i === 0 ? 'left' : 'right'}
+            logoHeight={20}
+            gap={12}
+            hoverSpeed={0}
+            fadeOut
+            fadeOutWidth={0.08}
+            ariaLabel={i === 0 ? 'Frontend skills' : 'Web3, quality and tooling skills'}
+          />
         ))}
       </div>
     </section>
+  )
+}
+
+function ExperienceItem({ exp, defaultOpen }) {
+  const [open, setOpen] = useState(defaultOpen)
+  return (
+    <div className={`timeline-item ${open ? 'open' : ''}`}>
+      <button
+        type="button"
+        className="timeline-head"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+      >
+        <span className="timeline-toggle" aria-hidden="true">{open ? '[-]' : '[+]'}</span>
+        <span className="timeline-head-text">
+          <span className="timeline-role">{exp.role}</span>
+          <span className="timeline-company">{exp.company}</span>
+          <span className="timeline-meta">
+            {exp.date} · {exp.location}
+          </span>
+        </span>
+      </button>
+      <p className="timeline-impact">{exp.impact}</p>
+      <div className="timeline-body">
+        <ul className="timeline-bullets">
+          {exp.bullets.map((b) => (
+            <li key={b}>{b}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
   )
 }
 
@@ -349,20 +522,16 @@ function Experience() {
   const timelineRef = useStaggerReveal(experiences.length, { stagger: 0.15 })
   return (
     <section id="experience" className="section experience">
-      <h2 className="section-title">Experience</h2>
+      <SectionTitle>Experience</SectionTitle>
       <div ref={timelineRef} className="timeline">
         {experiences.map((exp, i) => (
-          <div key={i} className="timeline-item">
-            <h3 className="timeline-role">{exp.role}</h3>
-            <p className="timeline-company">{exp.company}</p>
-            <p className="timeline-date">{exp.date}</p>
-            <p className="timeline-desc">{exp.desc}</p>
-          </div>
+          <ExperienceItem key={exp.company} exp={exp} defaultOpen={i === 0} />
         ))}
       </div>
     </section>
   )
 }
+
 
 function ProjectCarousel({ images }) {
   const [active, setActive] = useState(0)
@@ -404,14 +573,50 @@ function ProjectCarousel({ images }) {
   )
 }
 
+const CATEGORY_ORDER = ['Web3', 'Web', 'SDK', 'Desktop']
+const projectCategories = [
+  'All',
+  ...[...new Set(projects.map((p) => p.category))].sort(
+    (a, b) => CATEGORY_ORDER.indexOf(a) - CATEGORY_ORDER.indexOf(b)
+  ),
+]
+
 function Projects() {
-  const gridRef = useStaggerReveal(projects.length, { stagger: 0.08, y: 60 })
+  const [filter, setFilter] = useState('All')
+  const visible = (filter === 'All' ? projects : projects.filter((p) => p.category === filter))
+    .slice()
+    .reverse()
+  const gridRef = useStaggerReveal(`${filter}-${visible.length}`, { stagger: 0.06, y: 40 })
   return (
     <section id="projects" className="section">
-      <h2 className="section-title">Projects</h2>
+      <SectionTitle>Projects</SectionTitle>
+      <div className="project-filters" role="tablist" aria-label="Filter projects by category">
+        {projectCategories.map((c) => {
+          const count = c === 'All' ? projects.length : projects.filter((p) => p.category === c).length
+          return (
+            <button
+              key={c}
+              type="button"
+              role="tab"
+              aria-selected={filter === c}
+              className={`filter-btn ${filter === c ? 'active' : ''}`}
+              onClick={() => setFilter(c)}
+            >
+              {c} <span className="filter-count">{count}</span>
+            </button>
+          )
+        })}
+      </div>
       <div ref={gridRef} className="projects-grid">
-        {projects.map((p, i) => (
-          <div key={i} className="project-card">
+        {visible.map((p) => (
+          <SpotlightCard
+            key={p.title}
+            className="project-card"
+            theme="light"
+            spotlightColor="rgba(26, 26, 26, 0.18)"
+            spotlightSize={220}
+            flare={false}
+          >
             <div className="project-images">
               <ProjectCarousel images={p.images} />
             </div>
@@ -440,7 +645,7 @@ function Projects() {
                 </a>
               )}
             </div>
-          </div>
+          </SpotlightCard>
         ))}
       </div>
     </section>
@@ -491,7 +696,15 @@ function Footer() {
 
 export default function App() {
   return (
-    <div className="app">
+    <ClickSpark
+      className="app"
+      sparkColor="#1a1a1a"
+      sparkSize={10}
+      sparkRadius={22}
+      sparkCount={8}
+      sparkWidth={3}
+      duration={420}
+    >
       <Navbar />
       <Hero />
       <About />
@@ -500,6 +713,6 @@ export default function App() {
       <Projects />
       <Contact />
       <Footer />
-    </div>
+    </ClickSpark>
   )
 }
