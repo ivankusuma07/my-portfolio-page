@@ -211,8 +211,8 @@ const projects = [
   },
   {
     title: 'My Portfolio Page',
-    desc: 'My portfolio page built with React, Typescript, Vite, and GSAP for animations. Showcases my skills, experience, and projects in a visually appealing manner.',
-    tech: ['React', 'Typescript', 'Vite', 'GSAP'],
+    desc: 'My portfolio page built with React, Vite, and GSAP, with interactive React Bits components powered by Motion. Retro pixel theme showcasing my skills, experience, and projects.',
+    tech: ['React', 'Vite', 'GSAP', 'Motion', 'React Bits'],
     images: ['/images/16_my_portfolio_page.png'],
     links: {
       live: 'https://ivan-kusuma.netlify.app/',
